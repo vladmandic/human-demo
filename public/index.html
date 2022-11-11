@@ -1,39 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>TEMPLATE</title>
-  <meta name="viewport" content="width=device-width, shrink-to-fit=yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="TEMPLATE">
-  <meta name="keywords" content="TEMPLATE">
-  <meta name="description" content="TEMPLATE; Author: Vladimir Mandic <mandic00@live.com>">
-  <link rel="manifest" href="../index.webmanifest">
-  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-  <link rel="icon" sizes="256x256" href="../assets/icons/dash-256.png">
-  <link rel="apple-touch-icon" href="../assets/icons/dash-256.png">
-  <link rel="apple-touch-startup-image" href="../assets/icons/dash-256.png">
-  <link rel="stylesheet" href="index.css">
-  <script src="../dist/index.js"></script>
-</head>
-<body>
-  <noscript><h1>javascript is required</h1></noscript>
-  <nav>
-    <div id="nav" class="nav"></div>
-  </nav>
-  <header>
-    <div id="header" class="header">
-      TEMPLATE
-    </div>
-  </header>
-  <main>
-    <div id="main" class="main"></div>
-  </main>
-  <footer>
-    <div id="footer" class="footer"></div>
-  </footer>
-  <aside>
-    <div id="aside" class="aside"></div>
-  </aside>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Human</title>
+    <meta name="viewport" content="width=device-width" id="viewport">
+    <meta name="keywords" content="Human">
+    <meta name="application-name" content="Human">
+    <meta name="description" content="Human: 3D Face Detection, Body Pose, Hand & Finger Tracking, Iris Tracking, Age & Gender Prediction, Emotion Prediction & Gesture Recognition; Author: Vladimir Mandic <https://github.com/vladmandic>">
+    <meta name="msapplication-tooltip" content="Human: 3D Face Detection, Body Pose, Hand & Finger Tracking, Iris Tracking, Age & Gender Prediction, Emotion Prediction & Gesture Recognition; Author: Vladimir Mandic <https://github.com/vladmandic>">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="../index.webmanifest">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../assets/icon.png">
+    <script src="../dist/index.js" type="module"></script>
+    <style>
+      @font-face { font-family: 'CenturyGothic'; font-display: swap; font-style: normal; font-weight: 400; src: local('CenturyGothic'), url('../assets/century-gothic.ttf') format('truetype'); }
+      html { font-size: 18px; }
+      body { font-size: 1rem; font-family: "CenturyGothic", "Segoe UI", sans-serif; font-variant: small-caps; width: -webkit-fill-available; height: 100%; background: black; color: white; overflow-x: hidden; margin: 0; }
+      body::-webkit-scrollbar { display: none; }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" style="margin: 0 auto; width: 100%"></canvas>
+    <video id="video" playsinline style="display: none"></video>
+    <pre id="status" style="position: absolute; top: 12px; right: 20px; background-color: grey; padding: 8px; box-shadow: 2px 2px black"></pre>
+    <pre id="log" style="padding: 8px"></pre>
+    <div id="performance" style="position: absolute; bottom: 0; width: 100%; padding: 8px; font-size: 0.8rem;"></div>
+  </body>
 </html>

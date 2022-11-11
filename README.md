@@ -1,4 +1,4 @@
-# TEMPLATE
+# human-demo
 
 ## Update:
 - `package.json`: name, description, homepage, issues
