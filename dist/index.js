@@ -12,7 +12,7 @@ var __require = /* @__PURE__ */ ((x6) => typeof require !== "undefined" ? requir
   throw new Error('Dynamic require of "' + x6 + '" is not supported');
 });
 
-// node_modules/.pnpm/github.com+vladmandic+human@6ca780c2d8480178298b089900dedc84fa0a4f26/node_modules/@vladmandic/human/dist/human.esm.js
+// node_modules/.pnpm/github.com+vladmandic+human@8aed8be4c0905c16839873841f7cf49cfe727395/node_modules/@vladmandic/human/dist/human.esm.js
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __require2 = ((x6) => typeof __require !== "undefined" ? __require : typeof Proxy !== "undefined" ? new Proxy(x6, {
@@ -32109,13 +32109,18 @@ async function histogramEqualization(inputImage) {
   const maxValue = Math.max(absMax[0][0], absMax[1][0], absMax[2][0]);
   const maxRange = maxValue > 1 ? 255 : 1;
   const factor = maxRange / maxValue;
-  const sub = [ke(rgb2[0], min[0]), ke(rgb2[1], min[1]), ke(rgb2[2], min[2])];
-  const range = [ke(max[0], min[0]), ke(max[1], min[1]), ke(max[2], min[2])];
-  const enh = [oe(sub[0], factor), oe(sub[1], factor), oe(sub[2], factor)];
-  const stack = Ir([enh[0], enh[1], enh[2]], 2);
-  const reshape = z(stack, [1, squeeze.shape[0] || 0, squeeze.shape[1] || 0, 3]);
-  const final = jp(reshape);
-  Ft([...rgb2, ...min, ...max, ...sub, ...range, ...enh, rgb2, squeeze, reshape]);
+  let final;
+  if (factor > 1) {
+    const sub = [ke(rgb2[0], min[0]), ke(rgb2[1], min[1]), ke(rgb2[2], min[2])];
+    const range = [ke(max[0], min[0]), ke(max[1], min[1]), ke(max[2], min[2])];
+    const enh = [oe(sub[0], factor), oe(sub[1], factor), oe(sub[2], factor)];
+    const stack = Ir([enh[0], enh[1], enh[2]], 2);
+    final = z(stack, [1, squeeze.shape[0] || 0, squeeze.shape[1] || 0, 3]);
+    Ft([...sub, ...range, ...enh]);
+  } else {
+    final = _a(squeeze, 0);
+  }
+  Ft([...rgb2, ...min, ...max, rgb2, squeeze, inputImage]);
   return final;
 }
 var maxSize = 3840;
@@ -32345,13 +32350,13 @@ async function process2(input, config3, getTensor = true) {
     throw new Error("input error: cannot create tensor");
   const casted = qe(pixels, "float32");
   const tensor = config3.filter.equalization ? await histogramEqualization(casted) : _a(casted, 0);
+  Ft([pixels, casted]);
   if (config3.filter.autoBrightness) {
     const max = Vs(tensor);
     const maxVal = await max.data();
     config3.filter.brightness = maxVal[0] > 1 ? 1 - maxVal[0] / 255 : 1 - maxVal[0];
     Ft(max);
   }
-  Ft([pixels, casted]);
   return { tensor, canvas: config3.filter.return ? outCanvas : null };
 }
 async function skip(config3, input) {
@@ -45573,7 +45578,7 @@ async function warmupCanvas(instance2) {
         const ctx = canvas3.getContext("2d");
         if (ctx)
           ctx.drawImage(img, 0, 0);
-        const tensor = await instance2.image(canvas3);
+        const tensor = await instance2.image(canvas3, true);
         const res = tensor.tensor ? await instance2.detect(tensor.tensor, instance2.config) : void 0;
         resolve(res);
       }
